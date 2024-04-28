@@ -22,20 +22,24 @@ router.get("/fetchallnotes", fetchuser, async (req, res) => {
 router.post(
   "/addnote",fetchuser,
   [
-    body("title", "Enter a valid title").isLength({ min: 3 }),
-    body("description", "description must be atleast 5 characters").isLength({
-      min: 5,
+    body("FirstName", "Enter a valid first name").isLength({ min: 3 }),
+    body("LastName", "Enter a valid last name").isLength({
+      min: 3,
     }),
+    body("Email", "Enter a valid Email").isLength({ min: 3 }),
+    body("Phone", "Enter a valid phone").isLength({ min: 10 }),
+    body("Address", "Enter a valid Address").isLength({ min: 3 }),
+
   ],async (req, res) => {
     try {
-        const {title, description,tag} = req.body;
+        const {FirstName, LastName,Email,Phone,Address} = req.body;
         // If there are errors, return Bad request and the errors
         const error = validationResult(req);
         if (!error.isEmpty()) {
           return res.status(400).json({ error: error.array() });
         }
         const note = new Notes({
-            title, description,tag,user: req.user.id
+            FirstName, LastName,Email,Phone,Address,user: req.user.id
         })
         const saveNotes = await note.save();
         res.json(saveNotes);
@@ -52,12 +56,14 @@ router.put(
   "/updatenote/:id" ,fetchuser,
   async (req, res) => {
     try {
-      const {title, description, tag} = req.body;
+      const {FirstName, LastName, Email ,Phone, Address} = req.body;
       // Create a newNote object
       const newNote = {};
-      if(title){newNote.title = title};
-      if(description){newNote.description = description};
-      if(tag){newNote.tag = tag};
+      if(FirstName){newNote.FirstName = FirstName};
+      if(LastName){newNote.LastName = LastName};
+      if(Email){newNote.Email = Email};
+      if(Phone){newNote.Phone = Phone};
+      if(Address){newNote.Address = Address};
   
       //Find the note to be updated and update it 
       let note = await Notes.findById(req.params.id);

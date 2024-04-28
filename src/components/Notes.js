@@ -21,14 +21,14 @@ const Notes = () => {
 
   const ref = useRef(null);
   const refClose = useRef(null);
-  const [note, setNote] = useState({id:"", etitle:"", edescription:"", etag: ""})
+  const [note, setNote] = useState({id:"", eFirstName:"", eLastName:"", eEmail: "", ePhone:"", eAddress:""})
 
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({id: currentNote._id, etitle:currentNote.title, edescription: currentNote.description, etag:currentNote.tag});
+    setNote({id: currentNote._id, eFirstName:currentNote.FirstName, eLastName: currentNote.LastName, eEmail:currentNote.Email, ePhone: currentNote.Phone, eAddress: currentNote.Address});
   };
   const handleClick = (e) => {
-    editNote(note.id, note.etitle, note.edescription, note.etag);
+    editNote(note.id, note.eFirstName, note.eLastName, note.eEmail, note.ePhone, note.eAddress);
     refClose.current.click();
   };
 
@@ -60,7 +60,7 @@ const Notes = () => {
 
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                EditNote
+                Edit
               </h5>
               <button
                 type="button"
@@ -72,41 +72,67 @@ const Notes = () => {
             <div className="modal-body">
               <form >
                 <div className="mb-3">
-                  <label htmlFor="etitle" className="form-label" >
-                    Title
+                  <label htmlFor="eFirstName" className="form-label" >
+                    firstName
                   </label>
                   <input
                     type="text"
-                    name="etitle"
+                    name="eFirstName"
                     className="form-control input"
-                    id="etitle"
+                    id="eFirstName"
                     aria-describedby="emailHelp"
-                    onChange={onChange} value={note.etitle} minLength={3} required
+                    onChange={onChange} value={note.eFirstName} minLength={3} required
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="edescription" className="form-label">
-                    description
+                  <label htmlFor="eLastName" className="form-label">
+                    LastName
                   </label>
                   <input
-                   value={note.edescription}
+                   value={note.eLastName}
                     type="text"
                     className="form-control input"
-                    id="edescription"
-                    name="edescription"
+                    id="eLastName"
+                    name="eLastName"
                     onChange={onChange} minLength={5} required
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="etag" className="form-label">
-                    Tag
+                  <label htmlFor="eEmail" className="form-label">
+                    Email
                   </label>
                   <input
-                   value={note.etag}
+                   value={note.eEmail}
                     type="text"
                     className="form-control input"
-                    id="etag"
-                    name="etag"
+                    id="eEmail"
+                    name="eEmail"
+                    onChange={onChange} 
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="ePhone" className="form-label">
+                    Phone
+                  </label>
+                  <input
+                   value={note.ePhone}
+                    type="text"
+                    className="form-control input"
+                    id="ePhone"
+                    name="ePhone"
+                    onChange={onChange} 
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="eAddress" className="form-label">
+                    Address
+                  </label>
+                  <input
+                   value={note.eAddress}
+                    type="text"
+                    className="form-control input"
+                    id="eAddress"
+                    name="eAddress"
                     onChange={onChange} 
                   />
                 </div>
@@ -120,7 +146,7 @@ const Notes = () => {
               >
                 Close
               </button>
-              <button onClick={handleClick} type="button" className="btn btn-primary" disabled={note.etitle.length<3 || note.edescription.length<5}>
+              <button onClick={handleClick} type="button" className="btn btn-primary" disabled={note.eFirstName.length<3 || note.eLastName.length<5  || note.ePhone.length<10}>
                 Update Note
               </button>
             </div>

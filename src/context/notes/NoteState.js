@@ -21,14 +21,14 @@ const NoteState = (props)=>{
       }
 
       // Add a Note
-      const addNote = async(title, description, tag)=>{
+      const addNote = async(FirstName, LastName, Email, Phone, Address)=>{
         const response = await fetch(`${host}/api/notes/addnote`,{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             "auth-token": localStorage.getItem('token')
           },
-          body: JSON.stringify({title, description, tag})
+          body: JSON.stringify({FirstName, LastName, Email, Phone, Address})
         });
         const note = await response.json();
         setNotes(notes.concat(note));
@@ -48,7 +48,7 @@ const NoteState = (props)=>{
         setNotes(newNotes);
       }
       // Edit a Note
-      const editNote = async(id, title, description, editNote,tag)=>{
+      const editNote = async(id, FirstName, LastName, Email, Phone, Address, editNote)=>{
         // Api Call
         const response = await fetch(`${host}/api/notes/updatenote/${id}`,{
           method: 'PUT',
@@ -56,7 +56,7 @@ const NoteState = (props)=>{
             'Content-Type': 'application/json',
             "auth-token": localStorage.getItem('token')
           },
-          body: JSON.stringify({title, description, tag})
+          body: JSON.stringify({FirstName, LastName, Email, Phone, Address})
         });
         const json = await response.json();
         console.log(json)
@@ -66,9 +66,11 @@ const NoteState = (props)=>{
         for (let index = 0; index < notes.length; index++) {
           const element = notes[index]
         if(element._id ===id){
-          newNotes[index].title = title;
-          newNotes[index].description = description;
-          newNotes[index].tag = tag;
+          newNotes[index].FirstName = FirstName;
+          newNotes[index].LastName = LastName;
+          newNotes[index].Email = Email;
+          newNotes[index].Phone = Phone;
+          newNotes[index].Address = Address;
           break; 
         }
         }
